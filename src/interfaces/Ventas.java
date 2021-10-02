@@ -7,7 +7,7 @@ package interfaces;
 
 /**
  *
- * @author cesar
+ * @author cesar aaaaa
  */
 public class Ventas extends javax.swing.JFrame
 {
