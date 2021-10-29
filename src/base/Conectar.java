@@ -25,7 +25,7 @@ public class Conectar
 
         } catch (ClassNotFoundException ex)
         {
-            System.out.println("error de " + ex);
+            System.out.println("error de conexion " + ex);
         } catch (SQLException ex)
         {
             Logger.getLogger(Conectar.class.getName()).log(Level.SEVERE, null, ex);
