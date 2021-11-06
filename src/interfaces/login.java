@@ -5,6 +5,9 @@
  */
 package interfaces;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author cesar
@@ -18,6 +21,7 @@ public class login extends javax.swing.JFrame
     public login()
     {
         initComponents();
+      
     }
 
     /**
@@ -27,7 +31,8 @@ public class login extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -72,9 +77,13 @@ public class login extends javax.swing.JFrame
 
         jRadioButton1.setText("Ayuda");
         jPanel1.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 260, 60, -1));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondo.jpg"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 310, 290));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, 300, 280));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/panes-sin-levadura-660x642.jpg"))); // NOI18N
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 440, 300));
 
         jLabel7.setBackground(new java.awt.Color(255, 204, 153));
@@ -130,6 +139,8 @@ public class login extends javax.swing.JFrame
             }
         });
     }
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
