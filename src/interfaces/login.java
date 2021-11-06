@@ -5,8 +5,16 @@
  */
 package interfaces;
 
+import base.Conectar;
 import java.awt.Image;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,13 +23,45 @@ import javax.swing.ImageIcon;
 public class login extends javax.swing.JFrame
 {
 
+    Conectar enlace = new Conectar();
+    Connection co = enlace.conectar();
+    String[] datos = new String[3];
+    public static String tipo;
+    boolean noHay = true;
+
     /**
      * Creates new form login
      */
     public login()
     {
         initComponents();
-      
+
+    }
+
+    public void cargar(String usu, String contrasenia)
+    {
+        try
+        {
+            Statement leer = co.createStatement();
+            ResultSet resultado = leer.executeQuery("SELECT Usuario, contrasenia, Tipo FROM usuario");
+            while (resultado.next())
+            {
+                datos[0] = resultado.getString(1);
+                if (usu.equals(datos[0]))
+                {
+                    datos[0] = resultado.getString(1);                
+                    datos[1] = resultado.getString(2);
+                    datos[2] = resultado.getString(3);
+                    System.out.println("si hay");
+                    noHay = true;
+                    break;
+                }
+                noHay = false;
+            }
+        } catch (SQLException ex)
+        {
+            System.out.println("error al conectar " + ex);
+        }
     }
 
     /**
@@ -36,8 +76,8 @@ public class login extends javax.swing.JFrame
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        txtUsu = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -56,14 +96,19 @@ public class login extends javax.swing.JFrame
         jLabel1.setFont(new java.awt.Font("Franklin Gothic Demi", 0, 14)); // NOI18N
         jLabel1.setText("contraseña");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, 40));
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 180, 30));
-
-        jPasswordField1.setText("jPasswordField1");
-        jPanel1.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, 180, 30));
+        jPanel1.add(txtUsu, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 180, 30));
+        jPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, 180, 30));
 
         jButton1.setFont(new java.awt.Font("Franklin Gothic Demi", 0, 14)); // NOI18N
         jButton1.setText("Entrar");
         jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(113, 220, 70, -1));
 
         jLabel4.setFont(new java.awt.Font("Franklin Gothic Heavy", 0, 14)); // NOI18N
@@ -94,6 +139,25 @@ public class login extends javax.swing.JFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
+    {//GEN-HEADEREND:event_jButton1ActionPerformed
+        String usuario = txtUsu.getText();       
+        String contra = txtPassword.getText();
+        cargar(usuario, contra);
+        if (noHay == true)
+        {
+            Principal p = new Principal();
+            p.setVisible(true);
+            login l = new login();
+            l.setVisible(false);
+        } else
+        {
+            JOptionPane.showMessageDialog(null, "no se encontro el usuario");
+        }
+
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -141,7 +205,6 @@ public class login extends javax.swing.JFrame
     }
 
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -151,8 +214,8 @@ public class login extends javax.swing.JFrame
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtUsu;
     // End of variables declaration//GEN-END:variables
 }

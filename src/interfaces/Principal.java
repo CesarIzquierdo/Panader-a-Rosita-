@@ -5,17 +5,28 @@
  */
 package interfaces;
 
+import base.Conectar;
+import java.sql.Connection;
+
 /**
  *
  * @author artur
  */
-public class Principal extends javax.swing.JFrame {
-
+public class Principal extends javax.swing.JFrame
+{
+    Conectar enlace = new Conectar();
+    Connection co = enlace.conectar();
+    String tipo = login.tipo;
     /**
      * Creates new form Principal
      */
-    public Principal() {
+    public Principal()
+    {
         initComponents();
+        if (tipo == "A")
+        {
+            jtAdmin.enable(false);
+        }
     }
 
     /**
@@ -29,7 +40,7 @@ public class Principal extends javax.swing.JFrame {
     {
 
         jMenu1 = new javax.swing.JMenu();
-        jTabbedPane2 = new javax.swing.JTabbedPane();
+        jtAdmin = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -57,7 +68,7 @@ public class Principal extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jRadioButton1 = new javax.swing.JRadioButton();
         jPanel8 = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jtPan = new javax.swing.JTabbedPane();
         jPanel14 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
         jRadioButton8 = new javax.swing.JRadioButton();
@@ -76,7 +87,7 @@ public class Principal extends javax.swing.JFrame {
         jTextField11 = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable5 = new javax.swing.JTable();
+        tableAlmacen = new javax.swing.JTable();
         jButton17 = new javax.swing.JButton();
         jButton18 = new javax.swing.JButton();
         jButton19 = new javax.swing.JButton();
@@ -88,7 +99,7 @@ public class Principal extends javax.swing.JFrame {
         jTextField12 = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTable6 = new javax.swing.JTable();
+        tablePan = new javax.swing.JTable();
         jButton20 = new javax.swing.JButton();
         jButton21 = new javax.swing.JButton();
         jButton22 = new javax.swing.JButton();
@@ -215,13 +226,13 @@ public class Principal extends javax.swing.JFrame {
         });
         jPanel3.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(782, 443, -1, -1));
 
-        jTabbedPane2.addTab("Ventas", jPanel3);
+        jtAdmin.addTab("Ventas", jPanel3);
 
         jPanel8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTabbedPane1.setBackground(new java.awt.Color(255, 204, 102));
-        jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.LEFT);
-        jTabbedPane1.setToolTipText("");
+        jtPan.setBackground(new java.awt.Color(255, 204, 102));
+        jtPan.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+        jtPan.setToolTipText("");
 
         jRadioButton8.setText("Ayuda");
         jRadioButton8.addActionListener(new java.awt.event.ActionListener()
@@ -332,7 +343,7 @@ public class Principal extends javax.swing.JFrame {
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        jTabbedPane1.addTab("Gastos", jPanel14);
+        jtPan.addTab("Gastos", jPanel14);
 
         jRadioButton4.setText("Ayuda");
         jRadioButton4.addActionListener(new java.awt.event.ActionListener()
@@ -362,7 +373,7 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel20.setText("Buscar");
 
-        jTable5.setModel(new javax.swing.table.DefaultTableModel(
+        tableAlmacen.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][]
             {
                 {null, null, null, null, null},
@@ -375,11 +386,11 @@ public class Principal extends javax.swing.JFrame {
                 "1", "2", "3", "4", "5"
             }
         ));
-        jScrollPane5.setViewportView(jTable5);
-        if (jTable5.getColumnModel().getColumnCount() > 0)
+        jScrollPane5.setViewportView(tableAlmacen);
+        if (tableAlmacen.getColumnModel().getColumnCount() > 0)
         {
-            jTable5.getColumnModel().getColumn(3).setHeaderValue("4");
-            jTable5.getColumnModel().getColumn(4).setHeaderValue("5");
+            tableAlmacen.getColumnModel().getColumn(3).setHeaderValue("4");
+            tableAlmacen.getColumnModel().getColumn(4).setHeaderValue("5");
         }
 
         jButton17.setText("Eliminar");
@@ -484,7 +495,7 @@ public class Principal extends javax.swing.JFrame {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        jTabbedPane1.addTab("Almacen", jPanel2);
+        jtPan.addTab("Almacen", jPanel2);
 
         jRadioButton3.setText("Ayuda");
         jRadioButton3.addActionListener(new java.awt.event.ActionListener()
@@ -514,7 +525,7 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel21.setText("Buscar");
 
-        jTable6.setModel(new javax.swing.table.DefaultTableModel(
+        tablePan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][]
             {
                 {null, null, null, null},
@@ -527,7 +538,7 @@ public class Principal extends javax.swing.JFrame {
                 "Identificador", "Nombre", "Tipo", "Precio"
             }
         ));
-        jScrollPane6.setViewportView(jTable6);
+        jScrollPane6.setViewportView(tablePan);
 
         jButton20.setText("Eliminar");
 
@@ -631,7 +642,7 @@ public class Principal extends javax.swing.JFrame {
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        jTabbedPane1.addTab("Pan", jPanel4);
+        jtPan.addTab("Pan", jPanel4);
 
         jRadioButton2.setText("Ayuda");
         jRadioButton2.addActionListener(new java.awt.event.ActionListener()
@@ -659,7 +670,7 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Datos g", jPanel9);
+        jtPan.addTab("Datos g", jPanel9);
 
         jPanel10.setBackground(new java.awt.Color(255, 204, 153));
         jPanel10.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
@@ -676,7 +687,7 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 834, Short.MAX_VALUE)
+                    .addComponent(jtPan, javax.swing.GroupLayout.PREFERRED_SIZE, 834, Short.MAX_VALUE)
                     .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -686,10 +697,10 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jtPan, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jTabbedPane2.addTab("Admin", jPanel8);
+        jtAdmin.addTab("Admin", jPanel8);
 
         Salir.setText("Salir");
         Salir.addActionListener(new java.awt.event.ActionListener()
@@ -725,7 +736,7 @@ public class Principal extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Salir, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTabbedPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 863, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jtAdmin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 863, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -734,7 +745,7 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane2)
+                .addComponent(jtAdmin)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Salir)
                 .addContainerGap())
@@ -744,7 +755,10 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
-        // TODO add your handling code here:
+        Principal p = new Principal();
+        p.setVisible(false);
+        login l = new login();
+        l.setVisible(true);
     }//GEN-LAST:event_SalirActionPerformed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
@@ -802,33 +816,43 @@ public class Principal extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        } catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        } catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 new Principal().setVisible(true);
             }
         });
@@ -895,11 +919,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTable4;
-    private javax.swing.JTable jTable5;
-    private javax.swing.JTable jTable6;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
@@ -907,5 +927,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
+    private javax.swing.JTabbedPane jtAdmin;
+    private javax.swing.JTabbedPane jtPan;
+    private javax.swing.JTable tableAlmacen;
+    private javax.swing.JTable tablePan;
     // End of variables declaration//GEN-END:variables
 }

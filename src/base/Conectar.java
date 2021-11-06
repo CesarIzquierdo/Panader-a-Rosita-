@@ -21,7 +21,7 @@ public class Conectar
         {
 
             Class.forName("com.mysql.jdbc.Driver");
-            enlazar = DriverManager.getConnection("jdbc:mysql://localhost/panaderirosita", "root", "");
+            enlazar = DriverManager.getConnection("jdbc:mysql://localhost/panaderiarosita", "root", "");
 
         } catch (ClassNotFoundException ex)
         {
