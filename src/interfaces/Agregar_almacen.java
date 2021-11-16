@@ -25,7 +25,8 @@ public class Agregar_almacen extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jPanel10 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
@@ -57,25 +58,29 @@ public class Agregar_almacen extends javax.swing.JFrame {
         jPanel10.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, -1, -1));
 
         jButton1.setText("Agregar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButton1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("jLabel1");
+        jLabel1.setText("Bultos de harina");
 
-        jLabel2.setText("jLabel1");
+        jLabel2.setText("bultos de azucar");
 
-        jLabel3.setText("jLabel1");
+        jLabel3.setText("cantidad de levaduras");
 
-        jLabel4.setText("jLabel1");
+        jLabel4.setText("tipo de glace");
 
-        jLabel5.setText("jLabel1");
+        jLabel5.setText("cajas de leche");
 
         jRadioButton1.setText("Ayuda");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jRadioButton1ActionPerformed(evt);
             }
         });

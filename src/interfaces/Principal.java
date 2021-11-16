@@ -383,15 +383,10 @@ public class Principal extends javax.swing.JFrame
             },
             new String []
             {
-                "1", "2", "3", "4", "5"
+                "Bultos de harina", "bultos de azucar", "tipo glace", "levaduras", "cajas de leches"
             }
         ));
         jScrollPane5.setViewportView(tableAlmacen);
-        if (tableAlmacen.getColumnModel().getColumnCount() > 0)
-        {
-            tableAlmacen.getColumnModel().getColumn(3).setHeaderValue("4");
-            tableAlmacen.getColumnModel().getColumn(4).setHeaderValue("5");
-        }
 
         jButton17.setText("Eliminar");
 
