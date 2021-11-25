@@ -6,7 +6,15 @@
 package interfaces;
 
 import base.Conectar;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,19 +22,62 @@ import java.sql.Connection;
  */
 public class Principal extends javax.swing.JFrame
 {
+
     Conectar enlace = new Conectar();
     Connection co = enlace.conectar();
     String tipo = login.tipo;
+    boolean estado = false;
     /**
      * Creates new form Principal
      */
     public Principal()
     {
         initComponents();
+        cargar();
         if (tipo == "A")
         {
             jtAdmin.enable(false);
         }
+    }
+
+    public void cargar()
+    {
+        try
+        {
+            DefaultTableModel dtmAlmacen = new DefaultTableModel();
+            dtmAlmacen.addColumn("N bultos harina");
+            dtmAlmacen.addColumn("N bultos azúcar");           
+            dtmAlmacen.addColumn("N bultos sals");
+            dtmAlmacen.addColumn("Tipo glace");
+            dtmAlmacen.addColumn("N levaduras");            
+
+            tableAlmacen.setModel(dtmAlmacen);
+
+            String[] datosAlmacen = new String[5];
+            Statement leerAlmacen = co.createStatement();
+            ResultSet resultadoAlmacen = leerAlmacen.executeQuery("SELECT Nbultosharina, NbultosAzúcar, Nbultossal, Tipoglasé, Nlevaduras FROM almacén");
+
+            while (resultadoAlmacen.next())
+            {
+                datosAlmacen[0] = resultadoAlmacen.getString(1);
+                datosAlmacen[1] = resultadoAlmacen.getString(2);
+                datosAlmacen[2] = resultadoAlmacen.getString(3);
+                datosAlmacen[3] = resultadoAlmacen.getString(4);
+                datosAlmacen[4] = resultadoAlmacen.getString(5);                
+
+                dtmAlmacen.addRow(datosAlmacen);
+            }
+            tableAlmacen.setModel(dtmAlmacen);
+
+//Statement leerVentas = co.createStatement();
+            //ResultSet resultado = leerVentas.executeQuery("SELECT Nventas, Cantidad, Usuariovendedor, Totalapagar, Fechaventa, Tipopan FROM ventas");
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //Statement leerVGastos = co.createStatement();
+        //Statement leerVProducto = co.createStatement();
     }
 
     /**
@@ -75,7 +126,7 @@ public class Principal extends javax.swing.JFrame
         jTextField10 = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        tablaGastos = new javax.swing.JTable();
         jButton14 = new javax.swing.JButton();
         jButton15 = new javax.swing.JButton();
         jButton16 = new javax.swing.JButton();
@@ -99,12 +150,13 @@ public class Principal extends javax.swing.JFrame
         jTextField12 = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        tablePan = new javax.swing.JTable();
+        tablaPan = new javax.swing.JTable();
         jButton20 = new javax.swing.JButton();
         jButton21 = new javax.swing.JButton();
         jButton22 = new javax.swing.JButton();
-        jPanel9 = new javax.swing.JPanel();
+        panelGraficas = new javax.swing.JPanel();
         jRadioButton2 = new javax.swing.JRadioButton();
+        jButton2 = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         Salir = new javax.swing.JButton();
@@ -233,6 +285,21 @@ public class Principal extends javax.swing.JFrame
         jtPan.setBackground(new java.awt.Color(255, 204, 102));
         jtPan.setTabPlacement(javax.swing.JTabbedPane.LEFT);
         jtPan.setToolTipText("");
+        jtPan.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
+                jtPanMouseClicked(evt);
+            }
+        });
+
+        jPanel14.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
+                jPanel14MouseClicked(evt);
+            }
+        });
 
         jRadioButton8.setText("Ayuda");
         jRadioButton8.addActionListener(new java.awt.event.ActionListener()
@@ -253,20 +320,31 @@ public class Principal extends javax.swing.JFrame
 
         jLabel19.setText("Buscar");
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        tablaGastos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][]
             {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String []
             {
-                "Identificador", "Fecha", "Cantidad"
+                "numero de gasto", "Fecha", "Cantidad", "total"
             }
-        ));
-        jScrollPane4.setViewportView(jTable4);
+        )
+        {
+            boolean[] canEdit = new boolean []
+            {
+                false, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(tablaGastos);
 
         jButton14.setText("Eliminar");
 
@@ -326,7 +404,7 @@ public class Principal extends javax.swing.JFrame
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 847, Short.MAX_VALUE)
+            .addGap(0, 854, Short.MAX_VALUE)
             .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel14Layout.createSequentialGroup()
                     .addContainerGap()
@@ -335,7 +413,7 @@ public class Principal extends javax.swing.JFrame
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 385, Short.MAX_VALUE)
+            .addGap(0, 389, Short.MAX_VALUE)
             .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel14Layout.createSequentialGroup()
                     .addContainerGap()
@@ -468,7 +546,7 @@ public class Principal extends javax.swing.JFrame
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(776, Short.MAX_VALUE)
+                .addContainerGap(784, Short.MAX_VALUE)
                 .addComponent(jRadioButton4)
                 .addGap(14, 14, 14))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -520,7 +598,7 @@ public class Principal extends javax.swing.JFrame
 
         jLabel21.setText("Buscar");
 
-        tablePan.setModel(new javax.swing.table.DefaultTableModel(
+        tablaPan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][]
             {
                 {null, null, null, null},
@@ -530,10 +608,10 @@ public class Principal extends javax.swing.JFrame
             },
             new String []
             {
-                "Identificador", "Nombre", "Tipo", "Precio"
+                "Codigo", "Nombre", "Tipo", "Precio"
             }
         ));
-        jScrollPane6.setViewportView(tablePan);
+        jScrollPane6.setViewportView(tablaPan);
 
         jButton20.setText("Eliminar");
 
@@ -648,24 +726,40 @@ public class Principal extends javax.swing.JFrame
             }
         });
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap(702, Short.MAX_VALUE)
-                .addComponent(jRadioButton2)
-                .addGap(14, 14, 14))
+        jButton2.setText("Obtener");
+        jButton2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelGraficasLayout = new javax.swing.GroupLayout(panelGraficas);
+        panelGraficas.setLayout(panelGraficasLayout);
+        panelGraficasLayout.setHorizontalGroup(
+            panelGraficasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelGraficasLayout.createSequentialGroup()
+                .addContainerGap(406, Short.MAX_VALUE)
+                .addGroup(panelGraficasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelGraficasLayout.createSequentialGroup()
+                        .addComponent(jRadioButton2)
+                        .addGap(14, 14, 14))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelGraficasLayout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addGap(283, 283, 283))))
         );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addContainerGap(346, Short.MAX_VALUE)
+        panelGraficasLayout.setVerticalGroup(
+            panelGraficasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelGraficasLayout.createSequentialGroup()
+                .addGap(144, 144, 144)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
                 .addComponent(jRadioButton2)
                 .addContainerGap())
         );
 
-        jtPan.addTab("Datos g", jPanel9);
+        jtPan.addTab("Datos g", panelGraficas);
 
         jPanel10.setBackground(new java.awt.Color(255, 204, 153));
         jPanel10.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
@@ -808,6 +902,25 @@ public class Principal extends javax.swing.JFrame
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton22ActionPerformed
 
+    private void jtPanMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jtPanMouseClicked
+    {//GEN-HEADEREND:event_jtPanMouseClicked
+        // mostar los datos de la abla cuando de clic
+
+    }//GEN-LAST:event_jtPanMouseClicked
+
+    private void jPanel14MouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jPanel14MouseClicked
+    {//GEN-HEADEREND:event_jPanel14MouseClicked
+        System.out.println("hola");
+    }//GEN-LAST:event_jPanel14MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
+    {//GEN-HEADEREND:event_jButton2ActionPerformed
+       NewJFrame n = new NewJFrame();
+       n.setVisible(true);
+       super.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+    
+  
     /**
      * @param args the command line arguments
      */
@@ -863,6 +976,7 @@ public class Principal extends javax.swing.JFrame
     private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton18;
     private javax.swing.JButton jButton19;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton20;
     private javax.swing.JButton jButton21;
     private javax.swing.JButton jButton22;
@@ -903,7 +1017,6 @@ public class Principal extends javax.swing.JFrame
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton10;
     private javax.swing.JRadioButton jRadioButton2;
@@ -914,7 +1027,6 @@ public class Principal extends javax.swing.JFrame
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JTable jTable4;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
@@ -924,7 +1036,9 @@ public class Principal extends javax.swing.JFrame
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTabbedPane jtAdmin;
     private javax.swing.JTabbedPane jtPan;
+    private javax.swing.JPanel panelGraficas;
+    private javax.swing.JTable tablaGastos;
+    private javax.swing.JTable tablaPan;
     private javax.swing.JTable tableAlmacen;
-    private javax.swing.JTable tablePan;
     // End of variables declaration//GEN-END:variables
 }
