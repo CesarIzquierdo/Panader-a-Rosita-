@@ -4,8 +4,11 @@
  */
 package interfaces;
 
+import base.Conectar;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.nio.file.attribute.GroupPrincipal;
+import java.sql.Connection;
 
 /**
  *
@@ -18,11 +21,16 @@ public class NewJFrame extends javax.swing.JFrame
      * Creates new form NewJFrame
      */
     boolean estado = false;
+    Conectar enlace = new Conectar();
+    Connection co = enlace.conectar();
+
     public NewJFrame()
     {
         initComponents();
-         this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
         this.setTitle("Grafico de Barras");
+        estado = true;
+        repaint();
     }
 
     /**
@@ -35,14 +43,58 @@ public class NewJFrame extends javax.swing.JFrame
     private void initComponents()
     {
 
-        txt_promedio1 = new javax.swing.JTextField();
-        txt_promedio2 = new javax.swing.JTextField();
-        txt_promedio3 = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jButton3 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("jButton1");
+        jPanel1.setBackground(new java.awt.Color(255, 204, 153));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 3, 36)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel17.setText("Datos generales");
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 320, 40));
+
+        jButton4.setText("Regresar");
+        jButton4.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 40, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 70));
+
+        jPanel2.setBackground(new java.awt.Color(255, 204, 153));
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel2.setForeground(new java.awt.Color(255, 204, 204));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton3.setText("Mes");
+        jButton3.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, -1, -1));
+
+        jButton1.setText("Semana");
         jButton1.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -50,44 +102,43 @@ public class NewJFrame extends javax.swing.JFrame
                 jButton1ActionPerformed(evt);
             }
         });
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txt_promedio2, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)
-                    .addComponent(txt_promedio1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(txt_promedio3, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(110, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(txt_promedio1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txt_promedio2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addComponent(jButton1)))
-                .addContainerGap(269, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(128, 128, 128)
-                    .addComponent(txt_promedio3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(217, Short.MAX_VALUE)))
-        );
+        jButton2.setText("Año");
+        jButton2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, -1));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 90, 130, 130));
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel4.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel4.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel4.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 460, 370));
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jPanel5.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 60, 370));
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jPanel6.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel3.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 50, 370));
+
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 610, 430));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -97,6 +148,23 @@ public class NewJFrame extends javax.swing.JFrame
         estado = true;
         repaint();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
+    {//GEN-HEADEREND:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton3ActionPerformed
+    {//GEN-HEADEREND:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton4ActionPerformed
+    {//GEN-HEADEREND:event_jButton4ActionPerformed
+        Principal p = new Principal();
+        p.setVisible(true);
+        super.dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -145,9 +213,16 @@ public class NewJFrame extends javax.swing.JFrame
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JTextField txt_promedio1;
-    private javax.swing.JTextField txt_promedio2;
-    private javax.swing.JTextField txt_promedio3;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     // End of variables declaration//GEN-END:variables
 //Creamos el metodo para hallar el maximo promedio
     public static int calcularMayorPromedio(int promedio1, int promedio2, int promedio3)
@@ -175,9 +250,9 @@ public class NewJFrame extends javax.swing.JFrame
             if (estado == true)
             {
 
-                String campo_promedio1 = txt_promedio1.getText();
-                String campo_promedio2 = txt_promedio2.getText();
-                String campo_promedio3 = txt_promedio3.getText();
+                String campo_promedio1 = "1";//txt_promedio1.getText();
+                String campo_promedio2 = "2";//txt_promedio2.getText();
+                String campo_promedio3 = "2";//txt_promedio3.getText();
 
                 int valor_promedio1 = Integer.parseInt(campo_promedio1);
                 int valor_promedio2 = Integer.parseInt(campo_promedio2);
@@ -189,20 +264,44 @@ public class NewJFrame extends javax.swing.JFrame
                 int largo_promedio2 = valor_promedio2 * 400 / mayor_valor;
                 int largo_promedio3 = valor_promedio3 * 400 / mayor_valor;
 
+                //titulo
+                grafico.setColor(Color.BLACK);
+                grafico.drawString("Días           Total", 30, 150);
+                grafico.drawString("Lunes             " + campo_promedio1, 30, 190);
+                grafico.drawString("Martes            " + campo_promedio2, 30, 240);
+                grafico.drawString("Miercoles       " + campo_promedio3, 30, 290);
+                grafico.drawString("Jueves           " + campo_promedio3, 30, 340);
+                grafico.drawString("Viernes          " + campo_promedio3, 30, 390);
+                grafico.drawString("Sabado          " + campo_promedio3, 30, 440);
+                grafico.drawString("Domingo        " + campo_promedio3, 30, 490);
                 //Graficamos el promedio 1 o 1º promedio
-                grafico.setColor(Color.red);
-                grafico.fillRect(150, 350, largo_promedio1, 40);
-                grafico.drawString("1º promedio ", 50, 360);
+                grafico.setColor(Color.CYAN.darker());
+                grafico.fillRect(170, 180, largo_promedio1, 40);
 
                 //Graficamos el promedio 2 o 2º promedio
-                grafico.setColor(Color.green);
-                grafico.fillRect(150, 410, largo_promedio2, 40);
-                grafico.drawString("2º promedio ", 50, 420);
+                grafico.setColor(Color.ORANGE.darker());
+                grafico.fillRect(170, 230, largo_promedio2, 40);
 
                 //Graficamos el promedio 3 o 3º promedio
-                grafico.setColor(Color.blue);
-                grafico.fillRect(150, 470, largo_promedio3, 40);
-                grafico.drawString("3º promedio ", 50, 480);
+                grafico.setColor(Color.blue.darker());
+                grafico.fillRect(170, 280, largo_promedio3, 40);
+
+                //Graficamos el promedio 3 o 3º promedio
+                grafico.setColor(Color.MAGENTA.darker());
+                grafico.fillRect(170, 330, largo_promedio3, 40);
+
+                //Graficamos el promedio 3 o 3º promedio
+                grafico.setColor(Color.PINK.darker());
+                grafico.fillRect(170, 380, largo_promedio3, 40);
+
+                //Graficamos el promedio 3 o 3º promedio
+                grafico.setColor(Color.BLUE.brighter());
+                grafico.fillRect(170, 430, largo_promedio3, 40);
+
+                //Graficamos el promedio 3 o 3º promedio
+                grafico.setColor(Color.GREEN.darker());
+                grafico.fillRect(170, 480, largo_promedio3, 40);
+
             }
         } catch (Exception e)
         {
@@ -210,4 +309,3 @@ public class NewJFrame extends javax.swing.JFrame
         }
     }
 }
-

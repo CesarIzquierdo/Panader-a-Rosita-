@@ -27,6 +27,7 @@ public class Principal extends javax.swing.JFrame
     Connection co = enlace.conectar();
     String tipo = login.tipo;
     boolean estado = false;
+
     /**
      * Creates new form Principal
      */
@@ -46,10 +47,10 @@ public class Principal extends javax.swing.JFrame
         {
             DefaultTableModel dtmAlmacen = new DefaultTableModel();
             dtmAlmacen.addColumn("N bultos harina");
-            dtmAlmacen.addColumn("N bultos azúcar");           
+            dtmAlmacen.addColumn("N bultos azúcar");
             dtmAlmacen.addColumn("N bultos sals");
             dtmAlmacen.addColumn("Tipo glace");
-            dtmAlmacen.addColumn("N levaduras");            
+            dtmAlmacen.addColumn("N levaduras");
 
             tableAlmacen.setModel(dtmAlmacen);
 
@@ -63,21 +64,71 @@ public class Principal extends javax.swing.JFrame
                 datosAlmacen[1] = resultadoAlmacen.getString(2);
                 datosAlmacen[2] = resultadoAlmacen.getString(3);
                 datosAlmacen[3] = resultadoAlmacen.getString(4);
-                datosAlmacen[4] = resultadoAlmacen.getString(5);                
+                datosAlmacen[4] = resultadoAlmacen.getString(5);
 
                 dtmAlmacen.addRow(datosAlmacen);
             }
             tableAlmacen.setModel(dtmAlmacen);
 
-//Statement leerVentas = co.createStatement();
-            //ResultSet resultado = leerVentas.executeQuery("SELECT Nventas, Cantidad, Usuariovendedor, Totalapagar, Fechaventa, Tipopan FROM ventas");
         } catch (SQLException ex)
         {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        //Statement leerVGastos = co.createStatement();
-        //Statement leerVProducto = co.createStatement();
+        try
+        {
+            DefaultTableModel dtmAlmacen = new DefaultTableModel();
+            dtmAlmacen.addColumn("Número de gasto");
+            dtmAlmacen.addColumn("fecha");
+            dtmAlmacen.addColumn("cantidad gastada");                                    
+
+            tablaGastos.setModel(dtmAlmacen);
+
+            String[] datosAlmacen = new String[3];
+            Statement leerAlmacen = co.createStatement();
+            ResultSet resultadoAlmacen = leerAlmacen.executeQuery("SELECT fecha, Cangastadapedido, Ngasto FROM  comprado");
+
+            while (resultadoAlmacen.next())
+            {
+                datosAlmacen[0] = resultadoAlmacen.getString(1);
+                datosAlmacen[1] = resultadoAlmacen.getString(2);
+                datosAlmacen[2] = resultadoAlmacen.getString(3);          
+
+                dtmAlmacen.addRow(datosAlmacen);
+            }
+            tablaGastos.setModel(dtmAlmacen);
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          try
+        {
+            DefaultTableModel dtmAlmacen = new DefaultTableModel();
+            dtmAlmacen.addColumn("Codigo");
+            dtmAlmacen.addColumn("Nombre");
+            dtmAlmacen.addColumn("precio");
+            dtmAlmacen.addColumn("Tipo pan");
+
+            tablaPan.setModel(dtmAlmacen);
+
+            String[] datosAlmacen = new String[4];
+            Statement leerAlmacen = co.createStatement();
+            ResultSet resultadoAlmacen = leerAlmacen.executeQuery("SELECT Nombre, Precio, Tipodepan, codigo FROM  producto");
+
+            while (resultadoAlmacen.next())
+            {
+                datosAlmacen[0] = resultadoAlmacen.getString(1);
+                datosAlmacen[1] = resultadoAlmacen.getString(2);
+                datosAlmacen[2] = resultadoAlmacen.getString(3);          
+                datosAlmacen[3] = resultadoAlmacen.getString(4);          
+
+                dtmAlmacen.addRow(datosAlmacen);
+            }
+            tablaPan.setModel(dtmAlmacen);
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -156,9 +207,10 @@ public class Principal extends javax.swing.JFrame
         jButton22 = new javax.swing.JButton();
         panelGraficas = new javax.swing.JPanel();
         jRadioButton2 = new javax.swing.JRadioButton();
+        lbGrafi = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
         Salir = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
         Logo1 = new javax.swing.JLabel();
@@ -717,6 +769,8 @@ public class Principal extends javax.swing.JFrame
 
         jtPan.addTab("Pan", jPanel4);
 
+        panelGraficas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jRadioButton2.setText("Ayuda");
         jRadioButton2.addActionListener(new java.awt.event.ActionListener()
         {
@@ -725,8 +779,13 @@ public class Principal extends javax.swing.JFrame
                 jRadioButton2ActionPerformed(evt);
             }
         });
+        panelGraficas.add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(691, 346, -1, -1));
 
-        jButton2.setText("Obtener");
+        lbGrafi.setFont(new java.awt.Font("Tahoma", 3, 36)); // NOI18N
+        lbGrafi.setText("Presione");
+        panelGraficas.add(lbGrafi, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 150, 270, 110));
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/grafica-de-barras.png"))); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -734,30 +793,7 @@ public class Principal extends javax.swing.JFrame
                 jButton2ActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout panelGraficasLayout = new javax.swing.GroupLayout(panelGraficas);
-        panelGraficas.setLayout(panelGraficasLayout);
-        panelGraficasLayout.setHorizontalGroup(
-            panelGraficasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelGraficasLayout.createSequentialGroup()
-                .addContainerGap(406, Short.MAX_VALUE)
-                .addGroup(panelGraficasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelGraficasLayout.createSequentialGroup()
-                        .addComponent(jRadioButton2)
-                        .addGap(14, 14, 14))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelGraficasLayout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addGap(283, 283, 283))))
-        );
-        panelGraficasLayout.setVerticalGroup(
-            panelGraficasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelGraficasLayout.createSequentialGroup()
-                .addGap(144, 144, 144)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
-                .addComponent(jRadioButton2)
-                .addContainerGap())
-        );
+        panelGraficas.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 44, 520, 330));
 
         jtPan.addTab("Datos g", panelGraficas);
 
@@ -765,9 +801,9 @@ public class Principal extends javax.swing.JFrame
         jPanel10.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel17.setText("Admin");
-        jPanel10.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, -1, -1));
+        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel22.setText("Admin");
+        jPanel10.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, -1, -1));
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -915,12 +951,11 @@ public class Principal extends javax.swing.JFrame
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
     {//GEN-HEADEREND:event_jButton2ActionPerformed
-       NewJFrame n = new NewJFrame();
-       n.setVisible(true);
-       super.dispose();
+        NewJFrame n = new NewJFrame();
+        n.setVisible(true);
+        super.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
-    
-  
+
     /**
      * @param args the command line arguments
      */
@@ -988,12 +1023,12 @@ public class Principal extends javax.swing.JFrame
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1036,6 +1071,7 @@ public class Principal extends javax.swing.JFrame
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTabbedPane jtAdmin;
     private javax.swing.JTabbedPane jtPan;
+    private javax.swing.JLabel lbGrafi;
     private javax.swing.JPanel panelGraficas;
     private javax.swing.JTable tablaGastos;
     private javax.swing.JTable tablaPan;
