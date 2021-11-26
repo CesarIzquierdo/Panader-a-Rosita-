@@ -1,0 +1,38 @@
+-BEGIN HEADER-
+NASA/POWER CERES/MERRA2 Native Resolution Daily Data 
+Dates (month/day/year): 11/15/2021 through 11/26/2021 
+Location: Latitude  19.1299   Longitude -99.4987 
+Elevation from MERRA-2: Average for 0.5 x 0.625 degree lat/lon region = 2067.79 meters
+Value for missing model data cannot be computed or out of model availability range: -999 
+Parameter(s): 
+T2M                   MERRA-2 Temperature at 2 Meters (C) 
+T2MDEW                MERRA-2 Dew/Frost Point at 2 Meters (C) 
+T2MWET                MERRA-2 Wet Bulb Temperature at 2 Meters (C) 
+TS                    MERRA-2 Earth Skin Temperature (C) 
+T2M_RANGE             MERRA-2 Temperature at 2 Meters Range (C) 
+T2M_MAX               MERRA-2 Temperature at 2 Meters Maximum (C) 
+T2M_MIN               MERRA-2 Temperature at 2 Meters Minimum (C) 
+ALLSKY_SFC_LW_DWN     CERES SYN1deg All Sky Surface Longwave Downward Irradiance (W/m^2) 
+PS                    MERRA-2 Surface Pressure (kPa) 
+WS2M                  MERRA-2 Wind Speed at 2 Meters (m/s) 
+WS2M_MAX              MERRA-2 Wind Speed at 2 Meters Maximum (m/s) 
+WS2M_MIN              MERRA-2 Wind Speed at 2 Meters Minimum (m/s) 
+WS2M_RANGE            MERRA-2 Wind Speed at 2 Meters Range (m/s) 
+WS10M                 MERRA-2 Wind Speed at 10 Meters (m/s) 
+WS10M_MAX             MERRA-2 Wind Speed at 10 Meters Maximum (m/s) 
+WS10M_MIN             MERRA-2 Wind Speed at 10 Meters Minimum (m/s) 
+WS10M_RANGE           MERRA-2 Wind Speed at 10 Meters Range (m/s) 
+-END HEADER-
+YEAR,DOY,T2M,T2MDEW,T2MWET,TS,T2M_RANGE,T2M_MAX,T2M_MIN,ALLSKY_SFC_LW_DWN,PS,WS2M,WS2M_MAX,WS2M_MIN,WS2M_RANGE,WS10M,WS10M_MAX,WS10M_MIN,WS10M_RANGE
+2021,319,13.59,4.94,9.26,13.34,14.58,22.08,7.51,264.88,80.0,1.14,2.59,0.34,2.23,2.23,4.36,0.76,3.6
+2021,320,13.43,3.37,8.4,12.8,16.65,22.01,5.37,263.94,79.9,1.22,2.45,0.18,2.27,2.26,4.21,0.38,3.83
+2021,321,15.1,6.63,10.87,13.78,13.41,22.14,8.73,281.8,79.87,0.88,1.56,0.35,1.21,1.56,2.52,0.52,1.99
+2021,322,15.37,7.28,11.33,14.76,13.18,22.97,9.79,296.61,79.95,0.8,1.42,0.21,1.21,1.55,2.85,0.41,2.44
+2021,323,14.61,9.33,11.98,14.86,12.02,21.46,9.44,-999.0,80.05,1.46,2.6,0.69,1.91,2.99,4.54,1.7,2.84
+2021,324,15.08,8.46,11.77,15.32,14.7,22.69,8.0,-999.0,79.98,1.16,2.3,0.29,2.01,2.15,3.92,0.77,3.16
+2021,325,16.3,9.56,12.93,16.15,14.05,23.62,9.57,-999.0,79.93,0.86,1.94,0.16,1.78,1.6,3.17,0.16,3.02
+2021,326,16.88,10.75,13.82,16.72,10.94,22.61,11.67,-999.0,80.01,0.79,1.43,0.23,1.19,1.52,2.49,0.68,1.82
+2021,327,16.13,10.31,13.22,16.46,11.44,22.43,10.99,-999.0,79.96,1.04,1.65,0.56,1.09,1.96,2.77,1.12,1.66
+2021,328,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0
+2021,329,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0
+2021,330,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0,-999.0

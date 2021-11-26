@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -27,6 +28,10 @@ public class Principal extends javax.swing.JFrame
     Connection co = enlace.conectar();
     String tipo = login.tipo;
     boolean estado = false;
+    public int blanco = 0;
+    public int dulce = 0;
+    public int repo = 0;
+    public int fino = 0;
 
     /**
      * Creates new form Principal
@@ -80,7 +85,7 @@ public class Principal extends javax.swing.JFrame
             DefaultTableModel dtmAlmacen = new DefaultTableModel();
             dtmAlmacen.addColumn("Número de gasto");
             dtmAlmacen.addColumn("fecha");
-            dtmAlmacen.addColumn("cantidad gastada");                                    
+            dtmAlmacen.addColumn("cantidad gastada");
 
             tablaGastos.setModel(dtmAlmacen);
 
@@ -92,7 +97,7 @@ public class Principal extends javax.swing.JFrame
             {
                 datosAlmacen[0] = resultadoAlmacen.getString(1);
                 datosAlmacen[1] = resultadoAlmacen.getString(2);
-                datosAlmacen[2] = resultadoAlmacen.getString(3);          
+                datosAlmacen[2] = resultadoAlmacen.getString(3);
 
                 dtmAlmacen.addRow(datosAlmacen);
             }
@@ -101,7 +106,7 @@ public class Principal extends javax.swing.JFrame
         {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
-          try
+        try
         {
             DefaultTableModel dtmAlmacen = new DefaultTableModel();
             dtmAlmacen.addColumn("Codigo");
@@ -119,8 +124,8 @@ public class Principal extends javax.swing.JFrame
             {
                 datosAlmacen[0] = resultadoAlmacen.getString(1);
                 datosAlmacen[1] = resultadoAlmacen.getString(2);
-                datosAlmacen[2] = resultadoAlmacen.getString(3);          
-                datosAlmacen[3] = resultadoAlmacen.getString(4);          
+                datosAlmacen[2] = resultadoAlmacen.getString(3);
+                datosAlmacen[3] = resultadoAlmacen.getString(4);
 
                 dtmAlmacen.addRow(datosAlmacen);
             }
@@ -148,8 +153,8 @@ public class Principal extends javax.swing.JFrame
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        txtFino = new javax.swing.JTextField();
+        txtDulce = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -161,12 +166,12 @@ public class Principal extends javax.swing.JFrame
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
+        txtBlanco = new javax.swing.JTextField();
+        txtRepo = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
+        lbTotal = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jRadioButton1 = new javax.swing.JRadioButton();
         jPanel8 = new javax.swing.JPanel();
@@ -239,8 +244,16 @@ public class Principal extends javax.swing.JFrame
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel6.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 300, 120, 30));
-        jPanel6.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, 120, 30));
+        jPanel6.add(txtFino, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 300, 120, 30));
+
+        txtDulce.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                txtDulceKeyPressed(evt);
+            }
+        });
+        jPanel6.add(txtDulce, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, 120, 30));
 
         jLabel8.setText("$ 7");
         jPanel6.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 300, 50, 20));
@@ -272,8 +285,16 @@ public class Principal extends javax.swing.JFrame
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/gingerbread_87176.png"))); // NOI18N
         jPanel6.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 50, 40));
-        jPanel6.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 120, 30));
-        jPanel6.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 120, 30));
+
+        txtBlanco.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                txtBlancoKeyPressed(evt);
+            }
+        });
+        jPanel6.add(txtBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 120, 30));
+        jPanel6.add(txtRepo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 120, 30));
 
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Cake_with_biscuit_4_icon-icons.com_52565.png"))); // NOI18N
         jPanel6.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 50, 30));
@@ -286,7 +307,7 @@ public class Principal extends javax.swing.JFrame
         jLabel6.setFont(new java.awt.Font("Franklin Gothic Demi", 0, 14)); // NOI18N
         jLabel6.setText("Total a pagar");
 
-        jLabel16.setText("$$$$");
+        lbTotal.setText("ss");
 
         jButton1.setText("Aceptar");
 
@@ -295,24 +316,20 @@ public class Principal extends javax.swing.JFrame
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jButton1)))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addComponent(jLabel16)))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jButton1)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbTotal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jLabel6)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addContainerGap(42, Short.MAX_VALUE))
@@ -956,6 +973,59 @@ public class Principal extends javax.swing.JFrame
         super.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void txtBlancoKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_txtBlancoKeyPressed
+    {//GEN-HEADEREND:event_txtBlancoKeyPressed
+
+        if (!(txtBlanco.getText().equals("") || txtBlanco.equals(" ")))
+        {
+            String blancoBol = txtBlanco.getText();
+            blanco = Integer.parseInt(blancoBol);
+            System.out.println("blanco " + blanco);
+        }
+        if (!(lbTotal.getText().equals("ss") || lbTotal.equals(" ") || lbTotal.equals("0.0")))
+        {
+            if ((txtBlanco.getText().equals("8")))
+            {
+                String b1 = txtBlanco.getText();
+                System.out.println("hola");
+                double txt = Integer.parseInt(b1);
+                double sumB = 2.5 * txt;
+                String b = String.valueOf(sumB);
+                lbTotal.setText(b);
+            }  
+        } else
+        {
+            String b1 = lbTotal.getText();
+            double bb = Integer.parseInt(b1);
+            double sumB = (2.5 * blanco) + bb;
+            String b = String.valueOf(sumB);
+            lbTotal.setText(b);
+        }
+    }//GEN-LAST:event_txtBlancoKeyPressed
+
+    private void txtDulceKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_txtDulceKeyPressed
+    {//GEN-HEADEREND:event_txtDulceKeyPressed
+        if (!(txtDulce.getText().equals("") || txtDulce.equals(" ")))
+        {
+            String dulceA = txtDulce.getText();
+            dulce = Integer.parseInt(dulceA);
+            System.out.println("blanco " + dulce);
+        }
+        if (lbTotal.getText().equals("ss"))
+        {
+            double sumB = 2.5 * dulce;
+            String b = String.valueOf(sumB);
+            lbTotal.setText(b);
+        } else
+        {
+            String b1 = lbTotal.getText();
+            double bb = Integer.parseInt(b1);
+            double sumB = (2.5 * dulce) + bb;
+            String b = String.valueOf(sumB);
+            lbTotal.setText(b);
+        }
+    }//GEN-LAST:event_txtDulceKeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -1022,7 +1092,6 @@ public class Principal extends javax.swing.JFrame
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
@@ -1062,19 +1131,20 @@ public class Principal extends javax.swing.JFrame
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JTabbedPane jtAdmin;
     private javax.swing.JTabbedPane jtPan;
     private javax.swing.JLabel lbGrafi;
+    private javax.swing.JLabel lbTotal;
     private javax.swing.JPanel panelGraficas;
     private javax.swing.JTable tablaGastos;
     private javax.swing.JTable tablaPan;
     private javax.swing.JTable tableAlmacen;
+    private javax.swing.JTextField txtBlanco;
+    private javax.swing.JTextField txtDulce;
+    private javax.swing.JTextField txtFino;
+    private javax.swing.JTextField txtRepo;
     // End of variables declaration//GEN-END:variables
 }
